@@ -1,18 +1,22 @@
 import { FastifyReply, FastifyRequest } from "fastify"
 import { z } from "zod"
-import {CriarContatoRepository } from "../repositories/CriarContatoRepository"
 import { CriarTelefoneRepository } from "../repositories/CriarTelefoneRepository"
-import { BuscarTodosContatosRepository } from "../repositories/BuscarTodosContatosRepository"
-import { PesquisarContatoRepository } from "../repositories/PesquisarContatoRepository"
-import { AtualizarContatoRepository } from "../repositories/AtualizarContatoRepository"
-import { DeletarContatoRepository } from "../repositories/DeletarContatoRepository"
+import { ContatoRepository } from "../repositories/ContatoRepository"
+
+
+const criarContatoSchema = z.object({
+    nome: z.string({
+        required_error:"Nome deve ser informado."
+    }),
+    idade: z.number({
+        invalid_type_error: "Idade dever ser de tipo numérico.",
+        required_error:"Idade deve ser informada."
+    }),
+    telefones: z.array(z.string())
+})
 
 export async function criarContato(request: FastifyRequest, reply: FastifyReply){
-    const criarContatoSchema = z.object({
-        nome: z.string(),
-        idade: z.coerce.number(),
-        telefones: z.array(z.string())
-    })
+    
     const result = criarContatoSchema.safeParse(request.body)
     if (!result.success) {
         return reply.status(400).send({ error: "Dados Invalidos" })
@@ -20,8 +24,8 @@ export async function criarContato(request: FastifyRequest, reply: FastifyReply)
     const { nome, idade, telefones } = result.data
 
     try {
-        const criarContatoRepository = new CriarContatoRepository()
-        const novoContato = await criarContatoRepository.CriarContato(nome, idade)
+        const contatoRepository = new ContatoRepository()
+        const novoContato = await contatoRepository.CriarContato(nome, idade)
 
         const criarTelefoneRepository = new CriarTelefoneRepository()
         telefones.forEach(async (tel) => {
@@ -42,11 +46,12 @@ export async function buscarContatos (request: FastifyRequest, reply: FastifyRep
         return reply.status(400).send({ error: "Dados Invalidos" })
     }
     const { search } = result.data
+    const contatoRepository = new ContatoRepository()
+
     // Converta o termo de pesquisa para minúsculas
     if (search) {
         try {
-            const pesquisarContatoRepository = new PesquisarContatoRepository()
-            const contatos = await pesquisarContatoRepository.PesquisarContato(search)
+            const contatos = await contatoRepository.PesquisarContato(search)
             reply.status(200).send(contatos)
         } catch (error) {
             if (error instanceof Error) {
@@ -54,8 +59,7 @@ export async function buscarContatos (request: FastifyRequest, reply: FastifyRep
             }
         }
     }
-    const buscarTodosContatosRepository = new BuscarTodosContatosRepository()
-    const todosContatos =  await buscarTodosContatosRepository.BuscaTodosContatos();
+    const todosContatos =  await contatoRepository.BuscaTodosContatos();
     reply.send(todosContatos)
 
 }
@@ -83,9 +87,8 @@ export async function atualizarContatos(request: FastifyRequest, reply: FastifyR
     }    
 
     try {
-        const atualizarContatoRepository=new AtualizarContatoRepository()
-        await atualizarContatoRepository.AtualizarContato(result)
-        
+        const contatoRepository = new ContatoRepository()
+        await contatoRepository.atualizarContato(result)
 
         reply.status(200).send({ success: 'Contato Atualizado com Sucesso' });
     } catch (error) {
@@ -104,13 +107,10 @@ export async function deletarContato (request: FastifyRequest, reply: FastifyRep
         return reply.status(400).send({ error: "Contato inválido" })
     }
     const { id } = result.data
-
+    const contatoRepository = new ContatoRepository()
 
     try {
-        // Exclui o contato e seus telefones relacionados em cascata
-        const deletarContatoRepository = new DeletarContatoRepository()
-        await deletarContatoRepository.DeletarContato(id)
-
+        await contatoRepository.DeletarContato(id)
         reply.status(200).send({ success: 'Contato excluído com sucesso' });
     } catch (error) {
         if (error instanceof Error) {
