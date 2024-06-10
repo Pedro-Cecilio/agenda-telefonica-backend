@@ -1,11 +1,11 @@
 import { FastifyInstance} from 'fastify'
 
-import { atualizarContatos, buscarContatos, criarContato, deletarContato } from '../controllers/agendaTelefonicaController'
+import { contatoController } from '../controllers/contato'
 
 export async function agendaTelefonica(app: FastifyInstance) {
-    app.post('/', criarContato)
-    app.get('/', buscarContatos)
-    app.put('/', atualizarContatos);
-    app.delete('/:id', deletarContato); 
+    app.post('/', contatoController.criarContato)
+    app.get('/', contatoController.buscarContatos)
+    app.put('/:id', contatoController.atualizarContato);
+    app.delete('/:id', contatoController.deletarContato); 
 }
 
