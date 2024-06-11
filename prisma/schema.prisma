@@ -17,7 +17,7 @@ model Contato {
   id    Int       @id @default(autoincrement())
   nome  String    
   idade Int      
-  telefones Telefone[] // Relacionamento com a tabela "Telefone"
+  telefones Telefone[] 
 }
 
 // Definição da tabela "Telefone"
@@ -27,5 +27,5 @@ model Telefone {
   numero    String 
 
   // Chave estrangeira que faz referência à tabela "Contato"
-  contato   Contato @relation(fields: [contatoId], references: [id], onDelete: Cascade)
+  contato   Contato @relation(fields: [contatoId], references: [id], onUpdate:Cascade)
 }

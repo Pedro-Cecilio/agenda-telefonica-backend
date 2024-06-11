@@ -1,9 +1,9 @@
-import { prisma } from "../database/database";
-import { registraLogContatoDeletado } from "../utils/registraLogContatoDeletado";
+import { Contato } from "@prisma/client";
+import { prisma } from "../database";
 
 
 export class ContatoRepository {
-    public async atualizarContato(id: number, nome?: string, idade?: number) {
+    public async atualizarContato(id: number, nome?: string, idade?: number): Promise<Contato> {
         return await prisma.contato.update({
             where: {
                 id: id,
@@ -12,51 +12,46 @@ export class ContatoRepository {
                 nome,
                 idade,
             },
-        });
-    }
-
-    async buscaTodosContatos() {
-        const todosContatos = await prisma.contato.findMany({
             include: {
                 telefones: true,
             },
         });
-        return todosContatos
     }
 
-    async criarContato(nome: string, idade: number) {
-        const novoContato = await prisma.contato.create({
+    public async criarContato(nome: string, idade: number): Promise<Contato> {
+        return await prisma.contato.create({
             data: {
                 nome: nome,
                 idade: idade
-            }
+            },
+            include: {
+                telefones: true,
+            },
         })
-        return novoContato
     }
 
-    async deletarContato(id: number) {
+    public async deletarContato(id: number): Promise<void> {
         await prisma.contato.delete({
             where: {
                 id: id,
             },
         });
-        registraLogContatoDeletado(id)
     }
 
-    async pesquisarContato(search: string) {
-        const contatos = await prisma.contato.findMany({
+    public async buscarContatos(search: string | undefined): Promise<Contato[]> {
+        return await prisma.contato.findMany({
             where: {
                 OR: [
                     {
                         nome: {
-                            contains: search, 
+                            contains: search,
                         },
                     },
                     {
                         telefones: {
                             some: {
                                 numero: {
-                                    contains: search, 
+                                    contains: search,
                                 },
                             },
                         },
@@ -64,9 +59,19 @@ export class ContatoRepository {
                 ],
             },
             include: {
-                telefones: true, 
+                telefones: true,
             },
         });
-        return contatos
+    }
+
+    public async buscarContatoPorId(id: number): Promise<Contato | null> {
+        return await prisma.contato.findUnique({
+            where: {
+                id: id,
+            },
+            include: {
+                telefones: true,
+            },
+        })
     }
 }
