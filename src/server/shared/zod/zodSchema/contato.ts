@@ -25,3 +25,4 @@ export const novosDadosContatoSchema = z.object({
     }).optional(),
 });
 
+export type criarContatoType = z.infer<typeof criarContatoSchema>;
