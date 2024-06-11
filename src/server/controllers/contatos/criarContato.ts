@@ -1,6 +1,6 @@
 import { FastifyReply, FastifyRequest } from "fastify"
 import { ContatoRepository } from "../../database/repositories/ContatoRepository"
-import { validarSchemaZod } from "../../shared/validacoes/validacoes"
+import { validarSafeParseZod } from "../../shared/validacoes/validacoes"
 import { criarContatoSchema } from "../../shared/zod/zodSchema/contato"
 import { TelefoneRepository } from "../../database/repositories/TelefoneRepository"
 
@@ -9,7 +9,7 @@ import { TelefoneRepository } from "../../database/repositories/TelefoneReposito
 export async function criarContato(request: FastifyRequest, reply: FastifyReply) {
 
     const criarContatoParsed = criarContatoSchema.safeParse(request.body)
-    const { nome, idade, telefones } = validarSchemaZod(criarContatoParsed)
+    const { nome, idade, telefones } = validarSafeParseZod(criarContatoParsed)
 
     const contatoRepository = new ContatoRepository()
     const telefoneRepository = new TelefoneRepository()

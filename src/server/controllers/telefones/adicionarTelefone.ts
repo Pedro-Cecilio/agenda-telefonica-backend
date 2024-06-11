@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest,  } from "fastify";
 import { idContatoSchema } from "../../shared/zod/zodSchema/contato";
 import { telefoneSchema } from "../../shared/zod/zodSchema/telefone";
-import { validarSchemaZod } from "../../shared/validacoes/validacoes";
+import { validarSafeParseZod } from "../../shared/validacoes/validacoes";
 import { ContatoRepository } from "../../database/repositories/ContatoRepository";
 import { TelefoneRepository } from "../../database/repositories/TelefoneRepository";
 import { NaoEncontradoErro } from "../../shared/exceptions/erros";
@@ -12,8 +12,8 @@ export async function adicionarTelefone(request: FastifyRequest, reply: FastifyR
     const dadosIdContatoParsed = idContatoSchema.safeParse(request.params)
     const dadosAdicionarTelefoneParsed = telefoneSchema.safeParse(request.body)
 
-    const {id} = validarSchemaZod(dadosIdContatoParsed)
-    const {telefone} = validarSchemaZod(dadosAdicionarTelefoneParsed)
+    const {id} = validarSafeParseZod(dadosIdContatoParsed)
+    const {telefone} = validarSafeParseZod(dadosAdicionarTelefoneParsed)
 
     const contatoRepository = new ContatoRepository()
     const telefoneRepository = new TelefoneRepository()
