@@ -1,7 +1,7 @@
 import { FastifyInstance} from 'fastify'
 
-import { contatoController } from '../controllers/contato'
-import { telefoneController } from '../controllers/telefone';
+import { contatoController } from '../controllers/contatos'
+import { telefoneController } from '../controllers/telefones';
 
 export async function agendaTelefonica(app: FastifyInstance) {
     app.post('/contatos', contatoController.criarContato)
