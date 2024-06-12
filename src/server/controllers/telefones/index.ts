@@ -1,11 +1,11 @@
-import { adicionarTelefone } from "./adicionarTelefone";
-import { atualizarTelefone } from "./atualizarTelefone";
-import { buscarTelefones } from "./buscarTelefone";
-import { deletarTelefone } from "./deletarTelefone";
+import { adicionar } from "./adicionar";
+import { atualizar } from "./atualizar";
+import { buscar } from "./buscar";
+import { deletar } from "./deletar";
 
 export const telefoneController = {
-    adicionarTelefone,
-    buscarTelefones,
-    deletarTelefone,
-    atualizarTelefone
+    adicionar,
+    buscar,
+    deletar,
+    atualizar
 }

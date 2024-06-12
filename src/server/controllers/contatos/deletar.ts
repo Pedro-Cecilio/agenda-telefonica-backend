@@ -6,7 +6,7 @@ import { validarSafeParseZod } from "../../shared/validacoes/validacoes"
 
 
 
-export async function deletarContato(request: FastifyRequest, reply: FastifyReply) {
+export async function deletar(request: FastifyRequest, reply: FastifyReply) {
 
     const idContatoParsed = idContatoSchema.safeParse(request.params)
     const { id } = validarSafeParseZod(idContatoParsed)

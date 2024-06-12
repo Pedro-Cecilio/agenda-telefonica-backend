@@ -5,7 +5,7 @@ import { TelefoneRepository } from "../../database/repositories/TelefoneReposito
 import { NaoEncontradoErro } from "../../shared/exceptions/erros";
 
 
-export async function deletarTelefone(request: FastifyRequest, reply: FastifyReply) {
+export async function deletar(request: FastifyRequest, reply: FastifyReply) {
     const idTelefoneParsed = idTelefoneSchema.safeParse(request.params)
     const { id } = validarSafeParseZod(idTelefoneParsed)
 

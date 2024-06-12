@@ -4,7 +4,7 @@ import { validarSafeParseZod } from "../../shared/validacoes/validacoes";
 import { TelefoneRepository } from "../../database/repositories/TelefoneRepository";
 import { NaoEncontradoErro } from "../../shared/exceptions/erros";
 
-export async function atualizarTelefone(request: FastifyRequest, reply: FastifyReply) {
+export async function atualizar(request: FastifyRequest, reply: FastifyReply) {
     const novoTelefoneParsed = telefoneSchema.safeParse(request.body)
     const idTelefoneParsed = idTelefoneSchema.safeParse(request.params)
 

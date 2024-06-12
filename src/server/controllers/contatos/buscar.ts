@@ -7,7 +7,7 @@ const buscarContato = z.object({
     search: z.coerce.string().optional()
 })
 
-export async function buscarContatos(request: FastifyRequest, reply: FastifyReply) {
+export async function buscar(request: FastifyRequest, reply: FastifyReply) {
 
     const buscarContatoParsed = buscarContato.parse(request.query)
 

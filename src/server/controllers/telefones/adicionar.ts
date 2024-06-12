@@ -8,7 +8,7 @@ import { NaoEncontradoErro } from "../../shared/exceptions/erros";
 
 
 
-export async function adicionarTelefone(request: FastifyRequest, reply: FastifyReply){
+export async function adicionar(request: FastifyRequest, reply: FastifyReply){
     const dadosIdContatoParsed = idContatoSchema.safeParse(request.params)
     const dadosAdicionarTelefoneParsed = telefoneSchema.safeParse(request.body)
 

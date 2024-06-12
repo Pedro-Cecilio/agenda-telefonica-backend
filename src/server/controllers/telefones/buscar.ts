@@ -5,7 +5,7 @@ import { Telefone } from "@prisma/client";
 const buscarTelefone = z.object({
     search: z.coerce.string().optional()
 })
-export async function buscarTelefones(request: FastifyRequest, reply: FastifyReply) {
+export async function buscar(request: FastifyRequest, reply: FastifyReply) {
 
     const buscarTelefoneParsed = buscarTelefone.parse(request.query)
 

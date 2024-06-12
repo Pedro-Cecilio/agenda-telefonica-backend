@@ -6,7 +6,7 @@ import { TelefoneRepository } from "../../database/repositories/TelefoneReposito
 
 
 
-export async function criarContato(request: FastifyRequest, reply: FastifyReply) {
+export async function criar(request: FastifyRequest, reply: FastifyReply) {
 
     const criarContatoParsed = criarContatoSchema.safeParse(request.body)
     const { nome, idade, telefones } = validarSafeParseZod(criarContatoParsed)

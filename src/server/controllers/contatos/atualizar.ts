@@ -6,7 +6,7 @@ import { NaoEncontradoErro } from "../../shared/exceptions/erros";
 
 
 
-export async function atualizarContato(request: FastifyRequest, reply: FastifyReply) {
+export async function atualizar(request: FastifyRequest, reply: FastifyReply) {
     const contatoRepository = new ContatoRepository()
 
     const dadosIdContatoParsed = idContatoSchema.safeParse(request.params)

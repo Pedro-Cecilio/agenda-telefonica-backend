@@ -1,11 +1,11 @@
-import { atualizarContato } from "./atualizarContato";
-import { buscarContatos } from "./buscarContato";
-import { criarContato } from "./criarContato";
-import { deletarContato } from "./deletarContato";
+import { atualizar } from "./atualizar";
+import { buscar } from "./buscar";
+import { criar } from "./criar";
+import { deletar } from "./deletar";
 
 export const contatoController = {
-    atualizarContato,
-    buscarContatos,
-    criarContato,
-    deletarContato
+    atualizar,
+    buscar,
+    criar,
+    deletar
 }
