@@ -25,7 +25,9 @@ export const idContatoSchema = z.object({
 export const novosDadosContatoSchema = z.object({
     nome: z.string({
         invalid_type_error: "Nome deve ser do tipo string."
-    }).optional(),
+    }).optional()
+    .transform((nome)=> nome?.trim())
+    .refine((nome) => nome == undefined || nome.length > 0 , "Nome deve ser informado."),
     idade: z.number({
         invalid_type_error: "Idade deve ser do tipo numérico."
     }).optional(),
