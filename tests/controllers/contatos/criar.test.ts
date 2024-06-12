@@ -2,7 +2,7 @@ import { testServer } from "../../jest.setup"
 import { prisma } from "../../../src/server/database/database"
 import { CriarContatoFixture } from "../../fixture/contato/criarContatoFixture"
 
-describe("Contatos - criarContato", ()=>{
+describe("Contatos - criar", ()=>{
     let criarContatoFixture: CriarContatoFixture;
 
     beforeAll(()=>{
