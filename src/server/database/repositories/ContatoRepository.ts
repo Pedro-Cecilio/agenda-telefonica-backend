@@ -18,11 +18,18 @@ export class ContatoRepository {
         });
     }
 
-    public async criarContato(nome: string, idade: number): Promise<Contato> {
+    public async criarContato(nome: string, idade: number, telefones: string[]): Promise<Contato> {
         return await prisma.contato.create({
             data: {
                 nome: nome,
-                idade: idade
+                idade: idade,
+                telefones:{
+                    createMany: {
+                        data: telefones.map((numero) => ({
+                            numero: numero,
+                        })),
+                    },
+                }
             },
             include: {
                 telefones: true,
