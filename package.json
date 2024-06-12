@@ -5,16 +5,22 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec ts-node src/index.ts",
-    "test": "jest"
+    "migrate:dev": "dotenv -e .env -- npx prisma migrate deploy",
+    "migrate:test": "dotenv -e .env.test -- npx prisma migrate deploy",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "test:prepare": "npm run docker:up && npm run migrate:test",
+    "test": "npm run test:prepare && dotenv -e .env.test jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@fastify/cors": "^8.3.0",
+    "@types/jest": "^29.5.12",
     "@types/node": "^20.2.5",
     "@types/supertest": "^6.0.2",
-    "@types/jest": "^29.5.12",
+    "dotenv-cli": "^7.4.2",
     "nodemon": "^3.0.1",
     "supertest": "^7.0.0",
     "ts-node": "^10.9.1",

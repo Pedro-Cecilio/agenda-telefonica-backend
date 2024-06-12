@@ -6,18 +6,16 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgres"
   url      = env("DATABASE_URL")
 }
-
-// schema.prisma
 
 // Definição da tabela "Contato"
 model Contato {
   id    Int       @id @default(autoincrement())
   nome  String    
   idade Int      
-  telefones Telefone[] 
+  telefones Telefone[]
 }
 
 // Definição da tabela "Telefone"
@@ -27,5 +25,5 @@ model Telefone {
   numero    String 
 
   // Chave estrangeira que faz referência à tabela "Contato"
-  contato   Contato @relation(fields: [contatoId], references: [id], onUpdate:Cascade)
+  contato   Contato @relation(fields: [contatoId], references: [id], onUpdate:Cascade, onDelete:Cascade)
 }

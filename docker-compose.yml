@@ -1,0 +1,25 @@
+version: '3.9'
+
+# The containers that compose the project
+services:
+  db-development:
+    image: postgres:13
+    container_name: agenda-db-dev
+    restart: always
+    environment:
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: prisma
+      POSTGRES_DB: development
+    ports:
+      - "5432:5432"
+
+  db-test:
+    image: postgres:13
+    container_name: agenda-db-test
+    restart: always
+    environment:
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: prisma
+      POSTGRES_DB: test
+    ports:
+      - "5433:5432"
