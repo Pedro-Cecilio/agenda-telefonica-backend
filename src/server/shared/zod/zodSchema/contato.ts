@@ -3,13 +3,19 @@ import { validarFormatoTelefone, validarSeIdEnumerico } from "../../validacoes/v
 
 export const criarContatoSchema = z.object({
     nome: z.string({
-        required_error:"Nome deve ser informado."
-    }),
+        required_error: "Nome deve ser informado."
+    })
+    .transform((nome) => nome.trim())
+    .refine((nome) => nome.length > 0, "Nome deve ser informado."),
+
     idade: z.number({
-        invalid_type_error: "Idade dever ser de tipo numérico.",
-        required_error:"Idade deve ser informada."
-    }),
-    telefones: z.array(z.string().transform(validarFormatoTelefone))
+        invalid_type_error: "Idade deve ser um número inteiro.",
+        required_error: "Idade deve ser informada."
+    }).int("Idade deve ser um número inteiro."),
+    telefones: z.string({
+        required_error: "Telefones deve ser informado.",
+        invalid_type_error: "Telefones deve ser um array de string."
+    }).transform(validarFormatoTelefone).array().min(1, "Ao menos um telefone deve ser informado.")
 })
 
 export const idContatoSchema = z.object({
