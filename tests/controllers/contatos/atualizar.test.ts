@@ -2,7 +2,6 @@ import { Contato } from "@prisma/client";
 import { AtualizarContatoFixture } from "../../fixture/contato/atualizarContatoFixture";
 import { testServer } from "../../jest.setup";
 import { prisma } from "../../../src/server/database/database";
-import { popularBancoDeDados } from "../../seed/seed";
 
 describe("Contato - Atualizar", () => {
     let atualizarContatoFixture: AtualizarContatoFixture;
@@ -13,12 +12,7 @@ describe("Contato - Atualizar", () => {
     })
 
     beforeEach(async () => {
-        await popularBancoDeDados()
         contato = await prisma.contato.findFirstOrThrow();
-    })
-
-    afterAll(async ()=>{
-        await prisma.contato.deleteMany()
     })
 
     it("Deve ser possível atualizar todos os dados de um contato", async () => {
@@ -35,7 +29,7 @@ describe("Contato - Atualizar", () => {
     it("Deve ser possível atualizar somente o nome", async () => {
         const novosDados = atualizarContatoFixture.atualizarContatoNome();
         const resposta = await testServer
-            .put(`/contatos/${contato!.id}`)
+            .put(`/contatos/${contato.id}`)
             .send(novosDados)
             .expect(200)
 
@@ -46,7 +40,7 @@ describe("Contato - Atualizar", () => {
     it("Deve ser possível atualizar somente a idade", async () => {
         const novosDados = atualizarContatoFixture.atualizarContatoIdade();
         const resposta = await testServer
-            .put(`/contatos/${contato!.id}`)
+            .put(`/contatos/${contato.id}`)
             .send(novosDados)
             .expect(200)
 
@@ -58,7 +52,7 @@ describe("Contato - Atualizar", () => {
     it("Deve falhar ao tentar atualizar contato ao passar nome como string vazia", async ()=>{
         const novosDados = atualizarContatoFixture.atualizarContatoNomeVazio();
         const resposta = await testServer
-            .put(`/contatos/${contato!.id}`)
+            .put(`/contatos/${contato.id}`)
             .send(novosDados)
             .expect(400)
 
@@ -68,7 +62,7 @@ describe("Contato - Atualizar", () => {
     it("Deve falhar ao tentar atualizar contato ao passar nome como tipo numérico", async ()=>{
         const novosDados = atualizarContatoFixture.atualizarContatoNomeTipoNumerico();
         const resposta = await testServer
-            .put(`/contatos/${contato!.id}`)
+            .put(`/contatos/${contato.id}`)
             .send(novosDados)
             .expect(400)
 
@@ -79,7 +73,7 @@ describe("Contato - Atualizar", () => {
     it("Deve falhar ao tentar atualizar contato ao passar idade como string", async ()=>{
         const novosDados = atualizarContatoFixture.atualizarContatoIdadeString();
         const resposta = await testServer
-            .put(`/contatos/${contato!.id}`)
+            .put(`/contatos/${contato.id}`)
             .send(novosDados)
             .expect(400)
 

@@ -9,7 +9,8 @@
     "migrate:test": "dotenv -e .env.test -- npx prisma migrate deploy",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
-    "test:prepare": "npm run docker:up && npm run migrate:test",
+    "seed": "npx ts-node ./prisma/seed/seed.ts",
+    "test:prepare": "npm run docker:up && npm run migrate:test && dotenv -e .env.test npm run seed",
     "test": "npm run test:prepare && dotenv -e .env.test jest"
   },
   "keywords": [],

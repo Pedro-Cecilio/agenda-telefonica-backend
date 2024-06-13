@@ -1,5 +1,4 @@
 import { testServer } from "../../jest.setup"
-import { prisma } from "../../../src/server/database/database"
 import { CriarContatoFixture } from "../../fixture/contato/criarContatoFixture"
 
 describe("Contatos - criar", ()=>{
@@ -7,10 +6,6 @@ describe("Contatos - criar", ()=>{
 
     beforeAll(()=>{
         criarContatoFixture = new CriarContatoFixture();
-    })
-
-    afterEach(async ()=>{
-        await prisma.contato.deleteMany()
     })
 
     it("Deve criar um contato corretamente", async ()=>{

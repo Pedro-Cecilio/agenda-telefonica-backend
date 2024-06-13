@@ -10,7 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Definição da tabela "Contato"
 model Contato {
   id    Int       @id @default(autoincrement())
   nome  String    
@@ -18,12 +17,10 @@ model Contato {
   telefones Telefone[]
 }
 
-// Definição da tabela "Telefone"
 model Telefone {
   id        Int    @id @default(autoincrement())
   contatoId Int    
   numero    String 
 
-  // Chave estrangeira que faz referência à tabela "Contato"
   contato   Contato @relation(fields: [contatoId], references: [id], onUpdate:Cascade, onDelete:Cascade)
 }

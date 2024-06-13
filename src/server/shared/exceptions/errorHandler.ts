@@ -1,4 +1,3 @@
-// errorHandler.ts
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { AgendaTelefonicaErro } from './erros';
 
