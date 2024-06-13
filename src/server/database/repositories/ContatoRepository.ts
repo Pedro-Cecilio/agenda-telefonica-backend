@@ -52,6 +52,7 @@ export class ContatoRepository {
                     {
                         nome: {
                             contains: search,
+                            mode: "insensitive"
                         },
                     },
                     {
