@@ -1,23 +1,24 @@
 import { Response } from "supertest";
-import { AdicionarTelefoneFixture } from "../../fixture/telefone/adicionarTelefoneFixture"
+import { TelefoneFixture } from "../../fixture/telefone/telefoneFixture"
 import { testServer } from "../../jest.setup"
 import { Contato } from "@prisma/client";
 import { prisma } from "../../../src/server/database/database";
 
 describe("Telefones - adicionar", ()=>{
-    let adicionarTelefoneFixture: AdicionarTelefoneFixture;
+    let telefoneFixture: TelefoneFixture;
     let contato: Contato;
     beforeAll(()=>{
-        adicionarTelefoneFixture = new AdicionarTelefoneFixture()
+        telefoneFixture = new TelefoneFixture()
     })
     beforeEach(async () => {
         contato = await prisma.contato.findFirstOrThrow();
     })
 
     it("Deve ser possível adicionar um telefone a um contato corretamente", async ()=>{
+        console.log(contato.id)
         await testServer
            .post(`/telefones/${contato.id}`)
-           .send(adicionarTelefoneFixture.adicionarTelefoneCorretamente())
+           .send(telefoneFixture.telefoneCorreto())
            .expect(201)
     })
 
@@ -34,7 +35,7 @@ describe("Telefones - adicionar", ()=>{
     it("Deve falhar tentar adicionar telefone enviando valor de tipo diferente de string", async ()=>{
         const resposta : Response = await testServer
            .post(`/telefones/${contato.id}`)
-           .send(adicionarTelefoneFixture.adicionarTelefoneTipoNumber())
+           .send(telefoneFixture.telefoneTipoNumber())
            .expect(400)
 
         expect(resposta.body).toHaveProperty("message", "Telefone deve ser uma string.")
@@ -44,7 +45,7 @@ describe("Telefones - adicionar", ()=>{
     it("Deve falhar tentar adicionar telefone enviando valor em formato inválido", async ()=>{
         const resposta : Response = await testServer
            .post(`/telefones/${contato.id}`)
-           .send(adicionarTelefoneFixture.adicionarTelefoneFormatoInvalido())
+           .send(telefoneFixture.telefoneFormatoInvalido())
            .expect(400)
 
         expect(resposta.body).toHaveProperty("message", "Telefone com formato inválido. Padrão esperado: 11988886666")

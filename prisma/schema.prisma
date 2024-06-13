@@ -14,7 +14,7 @@ model Contato {
   id    Int       @id @default(autoincrement())
   nome  String    
   idade Int      
-  telefones Telefone[]
+  telefones Telefone[] 
 }
 
 model Telefone {
@@ -22,5 +22,5 @@ model Telefone {
   contatoId Int    
   numero    String 
 
-  contato   Contato @relation(fields: [contatoId], references: [id], onUpdate:Cascade, onDelete:Cascade)
+  contato   Contato @relation(fields: [contatoId], references: [id])
 }

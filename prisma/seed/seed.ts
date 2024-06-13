@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../../src/server/database/database";
 
 const popularBancoDeDados = async () => {
 
@@ -75,12 +73,9 @@ const popularBancoDeDados = async () => {
                 },
             })
         ]);
-
         console.log("Banco de dados populado com sucesso!");
     } catch (error) {
         console.error("Erro ao popular banco de dados:", error);
-    } finally {
-        await prisma.$disconnect();
     }
 };
 
