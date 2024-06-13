@@ -8,10 +8,13 @@ Este projeto é uma aplicação de agenda telefônica utilizando Fastify, onde �
 - Fastify
 - TypeScript
 - Prisma
-- SQLite
+- Postgres
+- Docker
 - Zod
 - Dotenv
 - Nodemon
+- Jest
+- Supertest
 
 ## Funcionalidades
 
@@ -22,6 +25,7 @@ Este projeto é uma aplicação de agenda telefônica utilizando Fastify, onde �
 
 - Node.js
 - npm
+- Docker
 
 ## Instalação
 
@@ -43,15 +47,34 @@ Este projeto é uma aplicação de agenda telefônica utilizando Fastify, onde �
     npm install
     ```
 
-## Uso
+## Preparando o Ambiente
 
-Para iniciar o servidor, execute:
+1. **Garanta que o Docker esteja em execução**
+    - Certifique-se de que o Docker está instalado e rodando na sua máquina.
 
-```bash
-npm start
-```
+2. **Execute o Docker Compose**
+    - Para executar o `docker-compose.yml`, use o seguinte comando:
+        ```bash
+        npm run docker:up
+        ```
 
+3. **Rode as Migrations no Banco de Dados de Desenvolvimento**
+    - Após a execução do Docker Compose, execute o seguinte comando para rodar as migrations:
+        ```bash
+        npm run migrate:dev
+        ```
 
+4. **Execute o Servidor**
+    - Após a execução de todos os passos anteriores, inicie o servidor da aplicação:
+        ```bash
+        npm start
+        ```
 
+## Execução dos Testes
 
-## OBS: A funcionalidade de testes será adicionada em refatorações futuras.
+1. **Rodando Todos os Testes**
+    - Para executar todos os testes da aplicação, utilize o seguinte comando:
+        ```bash
+        npm run test
+        ```
+    Esse comando será responsável por preparar todo o ambiente para execução dos testes e garantir que os testes de integração utilizem um banco isolado para testes.
