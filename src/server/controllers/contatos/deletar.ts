@@ -17,5 +17,5 @@ export async function deletar(request: FastifyRequest, reply: FastifyReply) {
         throw new NaoEncontradoErro("Contato não encontrado.")
     }
     await contatoRepository.deletarContato(id)
-    reply.status(200).send({ success: 'Contato excluído com sucesso' });
+    reply.status(200).send("Contato excluído com sucesso.");
 }
