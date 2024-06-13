@@ -102,7 +102,7 @@ describe("Contatos - criar", ()=>{
         .send(criarContatoFixture.criarContatoTelefonePadraoInvalido())
         .expect(400)
 
-        expect(resposta.body).toHaveProperty("message", "Telefone com formato inválido inválido. Padrão esperado: 11988886666")
+        expect(resposta.body).toHaveProperty("message", "Telefone com formato inválido. Padrão esperado: 11988886666")
         expect(resposta.body).toHaveProperty("statusCode", 400)
     })
     it("Deve falhar ao enviar telefones ao menos 1 telefone fora do padrão esperado", async ()=>{
@@ -111,7 +111,7 @@ describe("Contatos - criar", ()=>{
         .send(criarContatoFixture.criarContatoVariosTelefonesComApenasUmInvalido())
         .expect(400)
 
-        expect(resposta.body).toHaveProperty("message", "Telefone com formato inválido inválido. Padrão esperado: 11988886666")
+        expect(resposta.body).toHaveProperty("message", "Telefone com formato inválido. Padrão esperado: 11988886666")
         expect(resposta.body).toHaveProperty("statusCode", 400)
     })
 })

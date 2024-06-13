@@ -21,7 +21,7 @@ export const validarSeIdEnumerico = (id: string): number => {
 export const validarFormatoTelefone = (telefone: string) => {
     const regexTelefone: RegExp = /^\s*\d{2}9\d{8}\s*$/
     if (!regexTelefone.test(telefone)) {
-        throw new ValidacaoErro("Telefone com formato inválido inválido. Padrão esperado: 11988886666")
+        throw new ValidacaoErro("Telefone com formato inválido. Padrão esperado: 11988886666")
     }
     return telefone.trim();
 }

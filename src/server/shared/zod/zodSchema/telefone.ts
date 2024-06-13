@@ -3,7 +3,9 @@ import { validarFormatoTelefone, validarSeIdEnumerico } from "../../validacoes/v
 
 export const telefoneSchema = z.object({
     telefone: z.string({
-        required_error: "Telefone deve ser informado."
+        required_error: "Telefone deve ser informado.",
+        invalid_type_error: "Telefone deve ser uma string."
+        
     }).transform(validarFormatoTelefone)
 })
 
