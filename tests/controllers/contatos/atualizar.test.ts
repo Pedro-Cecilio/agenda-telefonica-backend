@@ -49,7 +49,7 @@ describe("Contato - Atualizar", () => {
         expect(resposta.body).toHaveProperty("idade", novosDados.idade)
     })
 
-    it("Deve falhar ao tentar atualizar contato ao passar nome como string vazia", async ()=>{
+    it("Deve falhar ao tentar atualizar contato ao passar nome como string vazia", async () => {
         const novosDados = atualizarContatoFixture.atualizarContatoNomeVazio();
         const resposta = await testServer
             .put(`/contatos/${contato.id}`)
@@ -59,7 +59,7 @@ describe("Contato - Atualizar", () => {
         expect(resposta.body).toHaveProperty("message", "Nome deve ser informado.")
         expect(resposta.body).toHaveProperty("statusCode", 400)
     })
-    it("Deve falhar ao tentar atualizar contato ao passar nome como tipo numérico", async ()=>{
+    it("Deve falhar ao tentar atualizar contato ao passar nome como tipo numérico", async () => {
         const novosDados = atualizarContatoFixture.atualizarContatoNomeTipoNumerico();
         const resposta = await testServer
             .put(`/contatos/${contato.id}`)
@@ -70,7 +70,7 @@ describe("Contato - Atualizar", () => {
         expect(resposta.body).toHaveProperty("statusCode", 400)
     })
 
-    it("Deve falhar ao tentar atualizar contato ao passar idade como string", async ()=>{
+    it("Deve falhar ao tentar atualizar contato ao passar idade como string", async () => {
         const novosDados = atualizarContatoFixture.atualizarContatoIdadeString();
         const resposta = await testServer
             .put(`/contatos/${contato.id}`)

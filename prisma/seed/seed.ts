@@ -22,8 +22,7 @@ const popularBancoDeDados = async () => {
                     idade: 30,
                     telefones: {
                         create: [
-                            { numero: '11987654321' },
-                            { numero: '21987654321' },
+                            { numero: '11987654321' }
                         ],
                     },
                 },

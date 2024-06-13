@@ -15,5 +15,5 @@ export async function deletar(request: FastifyRequest, reply: FastifyReply) {
         throw new NaoEncontradoErro("Telefone não encontrado.")
     }
     await telefoneRepository.deletarTelefone(id)
-    reply.status(200).send("Telefone excluído com sucesso")
+    reply.status(200).send("Telefone excluído com sucesso.")
 }
