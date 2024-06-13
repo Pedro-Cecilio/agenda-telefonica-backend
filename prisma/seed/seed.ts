@@ -18,7 +18,6 @@ const popularBancoDeDados = async () => {
                     }
                 }
             }),
-
             prisma.contato.create({
                 data: {
                     nome: 'Ana',
@@ -31,7 +30,6 @@ const popularBancoDeDados = async () => {
                     },
                 },
             }),
-
             prisma.contato.create({
                 data: {
                     nome: 'Carlos',
@@ -39,6 +37,39 @@ const popularBancoDeDados = async () => {
                     telefones: {
                         create: {
                             numero: '31912345678',
+                        },
+                    },
+                },
+            }),
+            prisma.contato.create({
+                data: {
+                    nome: 'Beatriz',
+                    idade: 32,
+                    telefones: {
+                        create: {
+                            numero: '21987654321',
+                        },
+                    },
+                },
+            }),
+            prisma.contato.create({
+                data: {
+                    nome: 'Guilherme',
+                    idade: 45,
+                    telefones: {
+                        create: {
+                            numero: '11923456789',
+                        },
+                    },
+                },
+            }),
+            prisma.contato.create({
+                data: {
+                    nome: 'Cecília',
+                    idade: 29,
+                    telefones: {
+                        create: {
+                            numero: '31987654321',
                         },
                     },
                 },
